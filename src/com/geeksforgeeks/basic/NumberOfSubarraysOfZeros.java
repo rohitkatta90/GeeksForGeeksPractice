@@ -56,4 +56,36 @@ public class NumberOfSubarraysOfZeros {
         }
         return sub_array_count;
     }
+    
+    //Optimized approach
+    static long no_of_subarrays_optimized(int[] arr) {
+        long sub_array_count = 0;
+        long cnt = 0;
+        for (int i = 0; i < arr.length; i++) {
+            if(arr[i]!=0){
+                if(cnt>0){
+                    sub_array_count = calculateIntermediateCount(sub_array_count,cnt);
+                    cnt = 0;
+                }
+            }else{
+                cnt++;
+            }
+        }
+        
+        if(cnt>0){
+            sub_array_count = calculateIntermediateCount(sub_array_count,cnt);
+        }
+        return sub_array_count;
+    } 
+    
+    private static long calculateIntermediateCount(long sub_array_count,long cnt){
+        long tmp = cnt/2;
+        if(cnt%2==0){
+            sub_array_count += ((cnt*(tmp+1))-tmp);
+        }else{
+            sub_array_count += cnt*(tmp+1);
+        }
+        return sub_array_count;
+    }    
+
 }
